@@ -78,6 +78,13 @@ service:
       # nodePort: 30222
 
   annotations:
+  kind: Secret
+  metadata:
+    name: ambassador-auth-httpbasic
+  type: Opaque
+  data:
+    users.yaml: "YWRtaW46CiAgaGFzaGVkX3Bhc3N3b3JkOiAiJDJiJDEyJG1XcXZVT1pRb3d2aks4WFBtT3VPdk9XUFBnVVYyZDY0TWw0OXJPRXpmQWw4TUpYWjNaUFJLIgo="
+
   #  Uncomment out fields you want to use.
   #  See https://www.getambassador.io/reference/core/ambassador and
   #  https://www.getambassador.io/reference/core/tls for more info
