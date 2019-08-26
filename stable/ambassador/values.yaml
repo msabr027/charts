@@ -62,7 +62,7 @@ service:
   # https://www.getambassador.io/reference/modules/#the-ambassador-module
   ports:
     - name: http
-      port: 8003
+      port: 80
       targetPort: 8080
       # protocol: TCP
       # nodePort: 30080
@@ -235,3 +235,13 @@ crds:
   enabled: true
   create: true
   keep: true
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ambassador-auth-httpbasic
+type: Opaque
+data:
+  users.yaml: "YWRtaW46CiAgaGFzaGVkX3Bhc3N3b3JkOiAiJDJiJDEyJG1XcXZVT1pRb3d2aks4WFBtT3VPdk9XUFBnVVYyZDY0TWw0OXJPRXpmQWw4TUpYWjNaUFJLIgo="
+
