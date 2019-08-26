@@ -62,7 +62,7 @@ service:
   # https://www.getambassador.io/reference/modules/#the-ambassador-module
   ports:
     - name: http
-      port: 80
+      port: 8003
       targetPort: 8080
       # protocol: TCP
       # nodePort: 30080
