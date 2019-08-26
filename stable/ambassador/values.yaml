@@ -84,7 +84,7 @@ service:
       kind: Secret
       metadata:
         name: ambassador-auth-httpbasic
-     type: Opaque
+      type: Opaque
       data:
         users.yaml: "YWRtaW46CiAgaGFzaGVkX3Bhc3N3b3JkOiAiJDJiJDEyJG1XcXZVT1pRb3d2aks4WFBtT3VPdk9XUFBnVVYyZDY0TWw0OXJPRXpmQWw4TUpYWjNaUFJLIgo="
       ---
