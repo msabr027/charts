@@ -78,12 +78,49 @@ service:
       # nodePort: 30222
 
   annotations:
-  kind: Secret
-  metadata:
-    name: ambassador-auth-httpbasic
-  type: Opaque
-  data:
-    users.yaml: "YWRtaW46CiAgaGFzaGVkX3Bhc3N3b3JkOiAiJDJiJDEyJG1XcXZVT1pRb3d2aks4WFBtT3VPdk9XUFBnVVYyZDY0TWw0OXJPRXpmQWw4TUpYWjNaUFJLIgo="
+    getambassador.io/config: 
+      ---
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: ambassador-auth-httpbasic
+     type: Opaque
+      data:
+        users.yaml: "YWRtaW46CiAgaGFzaGVkX3Bhc3N3b3JkOiAiJDJiJDEyJG1XcXZVT1pRb3d2aks4WFBtT3VPdk9XUFBnVVYyZDY0TWw0OXJPRXpmQWw4TUpYWjNaUFJLIgo="
+      ---
+      apiVersion: apps/v1beta2
+      kind: Deployment
+      metadata:
+        name: ambassador-auth-httpbasic
+      spec:
+        replicas: 1
+        strategy:
+          type: RollingUpdate
+        selector:
+          matchLabels:
+            app: ambassador-auth-httpbasic
+        template:
+          metadata:
+            labels:
+              app: ambassador-auth-httpbasic
+          spec:
+            containers:
+              - name: ambassador-auth-httpbasic
+                image: quay.io/datawire/ambassador-auth-httpbasic:0.1.1
+                ports:
+                  - name: http-api
+                    containerPort: 5000
+                volumeMounts:
+                  - name: ambassador-auth-httpbasic
+                    mountPath: /var/lib/ambassador/auth-httpbasic
+                    readOnly: true
+            volumes:
+              - name: ambassador-auth-httpbasic
+                secret:
+                  secretName: ambassador-auth-httpbasic
+                  items:
+                    - key: users.yaml
+                      path: users.yaml
 
   #  Uncomment out fields you want to use.
   #  See https://www.getambassador.io/reference/core/ambassador and
