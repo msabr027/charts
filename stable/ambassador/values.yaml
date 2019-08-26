@@ -78,7 +78,7 @@ service:
       # nodePort: 30222
 
   annotations:
-    getambassador.io/config: 
+    getambassador.io/config: |
       ---
       apiVersion: v1
       kind: Secret
